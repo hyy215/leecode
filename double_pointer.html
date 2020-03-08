@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>双指针</title>
+    <link rel="stylesheet" type="text/css" href="./public.css">
+</head>
+<body>
+    <h1>双指针法 —— 快慢指针</h1>
+    <div id="topic">
+        题目： <a target="_blank" href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/">LeetCode 26. 删除排序数组中的重复项</a>    
+    </div>
+    <div id="content">
+        <p>给定<b>(有序)</b>数组 nums = [1,1,2], </p>
+        <p>函数应该返回新的长度 2, 并且原数组 nums 的前两个元素被修改为 1, 2。</p>
+        <p>你不需要考虑数组中超出新长度后面的元素。</p>
+    </div>
+    <p class="subTitle">算法说明</p>
+    <canvas id="canvas" width="809" height="532"></canvas>
+    <p class="subTitle">js 代码演示</p>
+    <div>
+        <pre>
+            var removeDuplicates = function(nums) {
+                if (nums.length == 0) return 0;
+                let i = 0;
+                for (let j = 1; j < nums.length; j++) {
+                    if (nums[j] != nums[i]) {
+                        i++;
+                        nums[i] = nums[j];
+                    }
+                }
+                return i + 1;
+            };</pre>
+    </div>
+</body>
+<script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    window.requestAnimationFrame(draw);
+
+    async function draw() {
+        // 数组标题
+        ctx.font = "24px serif";
+        ctx.fillText("原数组", 68, 88);
+        ctx.fillText("快指针 j", 68, 238);
+        ctx.fillText("慢指针 i", 68, 408);
+
+        // 原数组球
+        let x = 280;
+        let y = 84;
+        let nums = [1, 1, 2];
+        for(let i = 0; i < nums.length; i++) {
+            ctx.beginPath();
+            // await timeout((i+1)*200)
+            ctx.arc(x, y, 30, 0, 2*Math.PI);
+            ctx.stroke();
+            ctx.font = "48px serif";
+            ctx.fillText(nums[i], x - 12, y + 15);
+            ctx.closePath();
+            if(i === nums.length - 1) {
+                break;
+            }
+            ctx.beginPath();
+            ctx.moveTo(x + 85, y - 3);
+            ctx.lineTo(x + 115, y - 3);
+            ctx.lineTo(x + 115, y + 3);
+            ctx.lineTo(x + 85, y + 3);
+            ctx.fill(); 
+            ctx.closePath();
+            ctx.beginPath();
+            ctx.moveTo(x + 115, y);
+            ctx.lineTo(x + 105, y - 10);
+            ctx.lineTo(x + 110, y - 10);
+            ctx.lineTo(x + 120, y);
+            ctx.lineTo(x + 110, y + 10);
+            ctx.lineTo(x + 105, y + 10);
+            ctx.lineTo(x + 115, y);
+            ctx.fill(); 
+            ctx.closePath();
+            x += 200;
+        }
+
+        // 比较
+        let x1 = 280;
+        let y1 = 238;
+        let x2 = 280;
+        let y2 = 408;
+
+        for(let i = 0; i < nums.length; i++) {
+            await timeout(500)
+            switch(i) {
+                case 0: 
+                    ctx.beginPath();
+                    ctx.arc(x1, y1, 30, 0, 2*Math.PI);
+                    ctx.stroke();
+                    ctx.font = "48px serif";
+                    ctx.fillText(nums[i], x1 - 12, y1 + 15);
+                    ctx.closePath();
+                    ctx.beginPath();
+                    ctx.arc(x2, y2, 30, 0, 2*Math.PI);
+                    ctx.stroke();
+                    ctx.font = "48px serif";
+                    ctx.fillText(nums[i], x2 - 12, y2 + 15);
+                    ctx.closePath();
+                    break;
+                case 1:
+                    ctx.beginPath();
+                    ctx.moveTo(x1 + 85, y1 - 3);
+                    ctx.lineTo(x1 + 115, y1 - 3);
+                    ctx.lineTo(x1 + 115, y1 + 3);
+                    ctx.lineTo(x1 + 85, y1 + 3);
+                    ctx.fill(); 
+                    ctx.closePath();
+                    ctx.beginPath();
+                    ctx.moveTo(x1 + 115, y1);
+                    ctx.lineTo(x1 + 105, y1 - 10);
+                    ctx.lineTo(x1 + 110, y1 - 10);
+                    ctx.lineTo(x1 + 120, y1);
+                    ctx.lineTo(x1 + 110, y1 + 10);
+                    ctx.lineTo(x1 + 105, y1 + 10);
+                    ctx.lineTo(x1 + 115, y1);
+                    ctx.fill(); 
+                    ctx.closePath();
+                    await timeout(500);
+                    x1 += 200;
+                    ctx.beginPath();
+                    ctx.arc(x1, y1, 30, 0, 2*Math.PI);
+                    ctx.stroke();
+                    ctx.font = "48px serif";
+                    ctx.fillText(nums[i], x1 - 12, y1 + 15);
+                    ctx.closePath();
+                    await timeout(500);
+                    ctx.beginPath();
+                    ctx.moveTo(x1 - 50, y1 + 40);
+                    ctx.lineTo(x2 + 40, y2 - 40);
+                    ctx.stroke();
+                    ctx.closePath();
+                    ctx.beginPath();
+                    ctx.moveTo(x2 + 48, y2 - 68);
+                    ctx.lineTo(x2 + 40, y2 - 40);
+                    ctx.lineTo(x2 + 70, y2 - 40);
+                    ctx.stroke();
+                    ctx.closePath();
+                    ctx.font = "24px serif";
+                    ctx.fillText("两数相等", (x1 + x2) / 2 + 30, (y1 + y2) / 2 + 10);
+                    ctx.fillText("跳过重复项", (x1 + x2) / 2 + 30, (y1 + y2) / 2 + 45);
+                    ctx.fillText("对比下一项", (x1 + x2) / 2 + 30, (y1 + y2) / 2 + 80);
+                    break;
+                case 2:
+                    await timeout(1000);
+                    ctx.clearRect(x2 + 40, y1 + 40, 400, 400);
+                    await timeout(500);
+                    ctx.beginPath();
+                    ctx.moveTo(x1 + 85, y1 - 3);
+                    ctx.lineTo(x1 + 115, y1 - 3);
+                    ctx.lineTo(x1 + 115, y1 + 3);
+                    ctx.lineTo(x1 + 85, y1 + 3);
+                    ctx.fill(); 
+                    ctx.closePath();
+                    ctx.beginPath();
+                    ctx.moveTo(x1 + 115, y1);
+                    ctx.lineTo(x1 + 105, y1 - 10);
+                    ctx.lineTo(x1 + 110, y1 - 10);
+                    ctx.lineTo(x1 + 120, y1);
+                    ctx.lineTo(x1 + 110, y1 + 10);
+                    ctx.lineTo(x1 + 105, y1 + 10);
+                    ctx.lineTo(x1 + 115, y1);
+                    ctx.fill(); 
+                    ctx.closePath();
+                    await timeout(500);
+                    x1 += 200;
+                    ctx.beginPath();
+                    ctx.arc(x1, y1, 30, 0, 2*Math.PI);
+                    ctx.stroke();
+                    ctx.font = "48px serif";
+                    ctx.fillText(nums[i], x1 - 12, y1 + 15);
+                    ctx.closePath();
+                    await timeout(500);
+                    ctx.beginPath();
+                    ctx.moveTo(x1 - 50, y1 + 15);
+                    ctx.lineTo(x2 + 50, y2 - 15);
+                    ctx.stroke();
+                    ctx.closePath();
+                    ctx.beginPath();
+                    ctx.moveTo(x2 + 70, y2 - 48);
+                    ctx.lineTo(x2 + 50, y2 - 15);
+                    ctx.lineTo(x2 + 80, y2 - 5);
+                    ctx.stroke();
+                    ctx.closePath();
+                    ctx.font = "24px serif";
+                    ctx.fillText("两数不相等", (x1 + x2) / 2 + 20, (y1 + y2) / 2 + 20);
+                    ctx.fillText("复制给慢指针", (x1 + x2) / 2 + 20, (y1 + y2) / 2 + 55);
+                    await timeout(1000);
+                    ctx.clearRect(x2 + 40, y1 + 40, 400, 400);
+                    ctx.clearRect(x2 + 290, y1 + 13 , 60, 60);
+                    await timeout(500);
+                    ctx.beginPath();
+                    ctx.moveTo(x2 + 85, y2 - 3);
+                    ctx.lineTo(x2 + 115, y2 - 3);
+                    ctx.lineTo(x2 + 115, y2 + 3);
+                    ctx.lineTo(x2 + 85, y2 + 3);
+                    ctx.fill();
+                    ctx.closePath();
+                    ctx.beginPath();
+                    ctx.moveTo(x2 + 115, y2);
+                    ctx.lineTo(x2 + 105, y2 - 10);
+                    ctx.lineTo(x2 + 110, y2 - 10);
+                    ctx.lineTo(x2 + 120, y2);
+                    ctx.lineTo(x2 + 110, y2 + 10);
+                    ctx.lineTo(x2 + 105, y2 + 10);
+                    ctx.lineTo(x2 + 115, y2);
+                    ctx.fill();2
+                    ctx.closePath();
+                    await timeout(500);
+                    x2 += 200;
+                    ctx.beginPath();
+                    ctx.arc(x2, y2, 30, 0, 2*Math.PI);
+                    ctx.stroke();
+                    ctx.font = "48px serif";
+                    ctx.fillText(nums[i], x2 - 12, y2 + 15);
+                    ctx.closePath();
+                    await timeout(5000);
+                    break;
+            }
+        }
+        ctx.clearRect(0, 0, 809, 532)
+        window.requestAnimationFrame(draw);
+    }
+
+    // 定时绘制
+    function timeout(ms) {
+        return new Promise((resolve) => {
+            setTimeout(resolve, ms);
+        });
+    }
+    
+    
+
+    
+</script>
+</html>
