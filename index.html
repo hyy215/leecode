@@ -34,8 +34,15 @@
             line-height: 8em;
             text-align: center;
         }
+        nav button {
+            display: none;
+        }
         ul {
+            display: block;
             list-style-type: none;
+        }
+        select {
+            display: none;
         }
         li {
             padding: 1.4em 2em;
@@ -59,16 +66,76 @@
         iframe {
             box-sizing: border-box;
         }
+        /* 适配移动端 */
+        @media screen and (max-width: 1000px) {
+            nav {
+                position: fixed;
+                width: 100%;
+                height: 3em;
+                box-shadow: none;
+                z-index: 999;
+                background: #f8f9fa;
+            }
+            nav h1 {
+                position: absolute;
+                top: 1.2em;
+                left: 1em;
+                line-height: 1em;
+                font-size: .9em;
+            }
+            nav button {
+                display: inline-block;
+                position: absolute;
+                top: .5em;
+                right: 1em;
+                border: 0;
+            }
+            nav button svg {
+                width: 4em;
+                height: 2.4em;
+            }
+            nav ul {
+                width: 100%;
+                padding-left: 1em;
+            }
+            nav li {
+                width: 100%;
+                padding: 0;
+                border: 0;
+                padding: 1em 0;
+                color: white;
+            }
+            li:nth-last-child(1) {
+                border-bottom: 0;
+            }
+            #overlay {
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: rgba(0, 0, 0, .8);
+                z-index: 998;
+            }
+            main {
+                top: 3em;
+                left: 0;
+            }
+        }
     </style>
 </head>
 <body>
     <nav>
         <h1>Leecode 算法说明</h1>
+        <button>
+            <svg t="1583744909497" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1152" width="200" height="200"><path d="M898.8 278.4H152.8a32 32 0 0 1 0-64h746a32 32 0 0 1 0 64zM898.8 547.408H152.8a32 32 0 0 1 0-64h746a32 32 0 0 1 0 64zM898.8 816.4H152.8a32 32 0 0 1 0-64h746a32 32 0 0 1 0 64z" fill="" p-id="1153"></path></svg>
+        </button>
         <ul>
             <li onclick="changeIframe('double_pointer.html')">双指针</li>
-            <!-- <li onclick="changeIframe('double_pointer.html')">滑动窗口</li> -->
+            <li onclick="changeIframe('double_pointer.html')">滑动窗口</li>
         </ul>
     </nav>
+    <div id="overlay"></div>
     <main>
         <iframe src="./double_pointer.html" id="iframe" height="100%" width="100%" frameborder=0></iframe>
     </main>
