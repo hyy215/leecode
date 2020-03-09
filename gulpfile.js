@@ -3,6 +3,7 @@ const connect = require('gulp-connect');
 
 function server() {
     connect.server({
+        host: '192.168.0.106',
         port: 3000,
         livereload: true,
     })

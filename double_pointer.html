@@ -34,7 +34,24 @@
             };</pre>
     </div>
 </body>
+<script src="./throttle.js"></script>
 <script>
+    // 控制iframe canvas、代码演示窗口变化
+    const iframeWidth = document.documentElement.offsetWidth;
+    if(iframeWidth <= 809) {
+        document.getElementById("canvas").style.zoom = iframeWidth/809 - 0.1;
+        document.getElementsByTagName("pre")[0].style.zoom = iframeWidth/809 - 0.1;
+    }
+    window.onresize = throttle(resize, 100);
+    
+    function resize() {
+        const iframeWidth = document.documentElement.offsetWidth;
+        if(iframeWidth <= 900 && iframeWidth > 414) {
+            document.getElementById("canvas").style.zoom = iframeWidth/809 - 0.1;
+            document.getElementsByTagName("pre")[0].style.zoom = iframeWidth/809 - 0.1;
+        }
+    }  
+
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
     

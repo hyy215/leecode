@@ -12,34 +12,35 @@ body {
     align-items: center;
 }
 h1 {
-    margin: 20px;
-    font-size: 20px;
+    padding: 1.5em;
+    font-size: 1.5em;
 }
 #topic {
-    margin: 20px;
+    padding: 2em .8em;
     text-align: center;
-    font-size: 18px;
+    font-size: 1.2em;
 }
 #content {
-    margin-bottom: 24px;
-    line-height: 30px;
+    padding: 0 .8em;
+    padding-bottom: 1em;
+    line-height: 2em;
     text-align: center;
 }
 .subTitle {
     font-weight: bold;
-    margin-top: 40px;
-    margin-bottom: 20px;
+    margin-top: 3em;
+    margin-bottom: 2em;
 }
 #canvas {
-    border: 1px #eee solid;
+    /* border: 1px #eee solid; */
     background: #ffffee;
 }
 pre {
     box-sizing: border-box;
     width: 809px;
-    font-size: 20px;
-    line-height: 30px;
+    font-size: 1.5em;
+    line-height: 2.5em;
     background: #f6f1f6;
-    padding: 20px;
-    margin-bottom: 40px;
+    padding: 1.5em;
+    margin-bottom: 4em;
 }
