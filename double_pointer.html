@@ -19,21 +19,21 @@
     <p class="subTitle">算法说明</p>
     <canvas id="canvas" width="809" height="532"></canvas>
     <p class="subTitle">js 代码演示</p>
-    <div>
-        <pre>
-            var removeDuplicates = function(nums) {
-                if (nums.length == 0) return 0;
-                let i = 0;
-                for (let j = 1; j < nums.length; j++) {
-                    if (nums[j] != nums[i]) {
-                        i++;
-                        nums[i] = nums[j];
-                    }
+    <div id="code">
+        var removeDuplicates = function(nums) {
+            if (nums.length == 0) return 0;
+            let i = 0;
+            for (let j = 1; j < nums.length; j++) {
+                if (nums[j] != nums[i]) {
+                    i++;
+                    nums[i] = nums[j];
                 }
-                return i + 1;
-            };</pre>
+            }
+            return i + 1;
+        };
     </div>
 </body>
+<script src="./throttle.js"></script>
 <script src="./public.js"></script>
 <script>
     const canvas = document.getElementById('canvas');

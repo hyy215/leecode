@@ -36,12 +36,14 @@ h1 {
     background: #ffffee;
     width: 809px;
 }
-pre {
+#code {
+    display: flex;
+    justify-content: center;
+    white-space: pre-wrap;
+    margin-bottom: 4em;
     box-sizing: border-box;
     width: 809px;
-    font-size: 1.5em;
-    line-height: 2.5em;
+    font-size: 1em;
+    line-height: 2em;
     background: #f6f1f6;
-    padding: 1.5em;
-    margin-bottom: 4em;
 }
