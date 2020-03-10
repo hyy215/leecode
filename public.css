@@ -34,6 +34,7 @@ h1 {
 #canvas {
     /* border: 1px #eee solid; */
     background: #ffffee;
+    width: 809px;
 }
 pre {
     box-sizing: border-box;

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>滑动窗口</title>
+    <link rel="stylesheet" type="text/css" href="./public.css">
+</head>
+<body>
+    <h1>滑动窗口</h1>
+    <div id="topic">
+        题目： <a target="_blank" href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/">LeetCode 3. 无重复字符的最长子串</a>    
+    </div>
+    <div id="content">
+        <p>给定一个字符串，请你找出其中不含有重复字符的<b>最长子串</b>的长度。</p>
+        <p><b>输入</b>: "abcabcbb"; &nbsp;&nbsp;&nbsp;&nbsp;<b>输出</b>: 3 </p>
+        <p>解释: 因为无重复字符的最长子串是 "abc"，所以其长度为 3。</p>
+    </div>
+    <p class="subTitle">算法说明</p>
+    <p style="line-height: 2em;">窗口向右推移，依次比较当前字符 s[i] 与之前的子串是否重复</p>
+    <p style="line-height: 2em; margin-bottom: 1.5em;">如果重复，则将左侧的窗口移动到与其重复字符的后面一格，去除前面的重复项</p>
+    <canvas id="canvas" width="809" height="332"></canvas>
+    <canvas id="canvas1" width="660" height="152" style="position: relative; top: -242px;"></canvas>
+    <p class="subTitle">js 代码演示</p>
+    <div>
+        <pre style="font-size: 1em;">
+            /**
+            * @param {string} s
+            * @return {number}
+            */
+            var lengthOfLongestSubstring = function(s) {
+                if(s === "") return 0;
+
+                let minId = 0;
+                let maxLength = 1;
+                let compareStr;
+                let currentStr = s.slice(0, 1);
+                let restStr = s.slice(1);
+
+                while(restStr) {
+                    compareStr = restStr.slice(0, 1);
+                    index = currentStr.indexOf(compareStr);
+                    if(index === -1) {
+                        currentStr += compareStr;
+                    } else {
+                        currentStr = currentStr.slice(index + 1) + compareStr;
+                    }
+                    maxLength = currentStr.length > maxLength ? currentStr.length : maxLength;
+                    restStr = restStr.slice(1);
+                }
+
+                return maxLength;
+            };</pre>
+    </div>
+</body>
+<script src="./public.js"></script>
+<script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    window.requestAnimationFrame(draw);
+
+    async function draw() {
+        ctx.font = "18px serif";
+        ctx.fillStyle = '#000';
+        // ctx.fillText("最长子串：", 250, 40);
+        ctx.fillText("最长子串长度：", 250, 50);
+        // 原字符串
+        const str = 'abcabcbb';
+        const x1 = 84.5;
+        const x2 = 724.5;
+        const y1 = 100;
+        const y2 = 232;
+
+        ctx.beginPath();
+        ctx.moveTo(x2, y1);
+        ctx.lineTo(x1, y1);
+        ctx.lineTo(x1, y2);
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
+        ctx.closePath();
+
+        let x3 = x1 + 80;
+        for(let i = 0; i < str.length; i++) {
+            ctx.beginPath();
+            ctx.moveTo(x3, y1);
+            ctx.lineTo(x3, y2);
+            ctx.stroke();
+            ctx.closePath();
+
+            ctx.font = "24px serif";
+            ctx.fillStyle = '#000';
+            ctx.globalAlpha = 1;
+            ctx.fillText(str[i], x3 - 50, y1 + 80);
+            x3 += 80;
+        }
+        
+        // await timeout(500);
+        
+        let x4 = 0;
+        let x5 = 100;
+        let y4 = 0;
+        let y5 = 152;
+        let removeX = 0;
+        let maxStr = "";
+        let maxLength = 0;
+        let index = 0;
+
+        // 判断最长子串
+        const canvas1 = document.getElementById('canvas1');
+        const ctx1 = canvas1.getContext('2d');
+        ctx1.fillStyle = '#e3cbf5';
+        ctx1.globalAlpha = 0.3;
+        // ctx1.fillRect(0,0,660,152);
+        for(let i = 0; i < str.length; i++) {
+            await timeout(1000);
+            index = maxStr.indexOf(str[i]);
+            if(index === -1) {
+                ctx.font = "18px serif";
+                ctx1.beginPath();
+                ctx1.moveTo(x4, y4);
+                ctx1.lineTo(x5, y4);
+                ctx1.lineTo(x5, y5);
+                ctx1.lineTo(x4, y5);
+                ctx1.lineTo(x4, y4);
+                ctx1.fill();
+                ctx1.closePath();
+                maxStr += str[i];
+            } else {
+                ctx1.beginPath();
+                ctx1.moveTo(x4, y4);
+                ctx1.lineTo(x5, y4);
+                ctx1.lineTo(x5, y5);
+                ctx1.lineTo(x4, y5);
+                ctx1.lineTo(x4, y4);
+                ctx1.fill();
+                ctx1.closePath();
+                await timeout(1000);
+                removeX += 80 * (index + 1);
+                ctx1.clearRect(0, 0, removeX, y5);
+                maxStr = maxStr.slice(index + 1) + str[i];
+            }
+            if(maxLength < maxStr.length) {
+                maxLength = maxStr.length;
+                ctx.clearRect(380, 30, 50, 30);
+                ctx.fillText(maxLength, 380, 51);
+            }
+            x4 = x5;
+            x5 += 80;
+        }
+        await timeout(2000);
+        ctx.clearRect(0, 0, 809, 332);
+        ctx1.clearRect(0, 0, 660, 152);
+
+        
+        window.requestAnimationFrame(draw);
+    } 
+</script>
+</html>
