@@ -40,6 +40,10 @@ h1 {
     background: #ffffee;
     width: 809px;
 }
+#gif {
+    width: 1300px;
+    margin-top: 50px;
+}
 #code {
     display: flex;
     justify-content: center;
