@@ -4,10 +4,12 @@ if(iframeWidth <= 809) {
     document.getElementById("canvas").style.zoom = iframeWidth/809 - 0.1;
     document.getElementById("canvas1") ? document.getElementById("canvas1").style.zoom = iframeWidth/809 - 0.1 : null;
     document.getElementById("code").style.zoom = iframeWidth/809 - 0.1;
+    document.getElementById("gif").style.zoom = iframeWidth/809 - 0.1;
 } else if(iframeWidth > 809) {
     document.getElementById("canvas").style.zoom = 1;
     document.getElementById("canvas1") ? document.getElementById("canvas1").style.zoom = 1 : null;
     document.getElementById("code").style.zoom = 1;
+    document.getElementById("gif").style.zoom = 1;
 }
 window.onresize = throttle(resize, 100);
 
@@ -17,6 +19,7 @@ function resize() {
         document.getElementById("canvas").style.zoom = iframeWidth/809 - 0.1;
         document.getElementById("canvas1") ? document.getElementById("canvas1").style.zoom = iframeWidth/809 - 0.1 : null;
         document.getElementById("code").style.zoom = iframeWidth/809 - 0.1;
+        document.getElementById("gif ").style.zoom = iframeWidth/809 - 0.1;
     }
 }
 
